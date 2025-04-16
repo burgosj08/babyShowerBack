@@ -6,11 +6,27 @@ const bodyParser = require('body-parser');
 const app = express();
 
 // Middleware
-app.use(cors());
+// app.use(cors());
+
+const allowedOrigins = [
+  'https://baby-shower-paris.vercel.app/', 
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
+
 app.use(bodyParser.json());
 
 // Conexión a MongoDB
-mongoose.connect('mongodb+srv://jaelburgos08:K32E12S1lVlkQlNk@babyshower.u219m.mongodb.net/?retryWrites=true&w=majority&appName=BabyShower', {
+mongoose.connect(process.env.MONGODB_URI,{
+// ('mongodb+srv://jaelburgos08:K32E12S1lVlkQlNk@babyshower.u219m.mongodb.net/?retryWrites=true&w=majority&appName=BabyShower', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
