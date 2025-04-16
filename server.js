@@ -9,7 +9,7 @@ const app = express();
 // app.use(cors());
 
 const allowedOrigins = [
-  'https://baby-shower-paris.vercel.app/', 
+  'https://baby-shower-paris.vercel.app', 
 ];
 
 app.use(cors({
